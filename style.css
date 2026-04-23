@@ -1,0 +1,88 @@
+/* General Page Styling */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f5f7;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Board Layout */
+.board {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Columns */
+.column {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  width: 300px;
+  min-height: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.column:hover {
+  transform: translateY(-5px);
+}
+
+/* Column Titles */
+.column h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Task Cards */
+.task {
+  background: #e0e0e0;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: grab;
+  transition: 0.2s;
+}
+
+.task:hover {
+  background: #d6d6d6;
+}
+
+/* Add Task Section */
+.add-task {
+  display: flex;
+  margin-top: 10px;
+  gap: 5px;
+}
+
+.add-task input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.add-task button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.add-task button:hover {
+  background: #0056b3;
+}
+
+/* Drag Highlight */
+.drag-over {
+  background: #d0f0ff !important;
+}
