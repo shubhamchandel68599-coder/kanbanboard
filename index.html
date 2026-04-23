@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .board {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .column {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      width: 300px;
+      min-height: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .column h2 {
+      text-align: center;
+    }
+
+    .task {
+      background: #e0e0e0;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: grab;
+    }
+
+    .add-task {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .add-task input {
+      flex: 1;
+      padding: 5px;
+    }
+
+    .add-task button {
+      padding: 5px 10px;
+    }
+
+    .drag-over {
+      background: #d0f0ff;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Kanban Board</h1>
+
+<div class="board">
+  <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h2>To Do</h2>
+    <div class="task-list" id="todo"></div>
+    <div class="add-task">
+      <input type="text" id="todo-input" placeholder="New task">
+      <button onclick="addTask('todo')">Add</button>
+    </div>
+  </div>
+
+  <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h2>In Progress</h2>
+    <div class="task-list" id="inprogress"></div>
+  </div>
+
+  <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h2>Done</h2>
+    <div class="task-list" id="done"></div>
+  </div>
+</div>
+
+<script>
+  let taskId = 0;
+
+  function addTask(columnId) {
+    const input = document.getElementById(columnId + '-input');
+    const value = input.value.trim();
+    if (!value) return;
+
+    const task = document.createElement('div');
+    task.className = 'task';
+    task.draggable = true;
+    task.id = 'task-' + taskId++;
+    task.innerText = value;
+
+    task.ondragstart = drag;
+
+    document.getElementById(columnId).appendChild(task);
+    input.value = '';
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const task = document.getElementById(data);
+
+    let target = ev.target;
+
+    while (!target.classList.contains('task-list') && !target.classList.contains('column')) {
+      target = target.parentElement;
+    }
+
+    if (target.classList.contains('column')) {
+      target = target.querySelector('.task-list');
+    }
+
+    target.appendChild(task);
+  }
+</script>
+
+</body>
+</html>
